@@ -1,0 +1,52 @@
+.active {
+  background-color: lightblue !important;
+}
+
+.header__values {
+  display: flex;
+  gap: 20px;
+}
+
+.header__values > p {
+  display: flex;
+}
+
+.header__secondary {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.header__primary {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+}
+
+.select_name {
+  width: 400px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  padding: 30px;
+  margin-top: 100px;
+}
+
+header {
+  position: fixed !important;
+  top: 0;
+  width: 100%;
+  right: 0;
+  left: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: white;
+  border-bottom: 2px solid gray;
+}
