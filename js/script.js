@@ -1,5 +1,5 @@
 import render, { getItemDropList } from "./render.js";
-import { processMsgData, createTerrainDropList } from "./fileReader.js";
+import { processMsgData, createTerrainDropList, getMonsters } from "./fileReader.js";
 import { insertItemNames } from "./itemNames.js";
 import { appendNewItem } from "./addItem.js";
 
@@ -9,6 +9,7 @@ const newItemBtn = document.querySelector(".addItemButton");
 const generateListButton = document.querySelector(".generateListButton");
 
 let itemDropList = [];
+let cabalMsgDec;
 let itemsList = [];
 let selectedEl = {
   name: "",
@@ -50,7 +51,7 @@ itemsFile.addEventListener("change", function () {
     try {
       const result = await processMsgData(reader);
       itemsList = await createTerrainDropList(result);
-
+      cabalMsgDec = await getMonsters(reader);
       $(".select2").select2();
       insertItemNames(itemsList);
     } catch (err) {
@@ -58,27 +59,6 @@ itemsFile.addEventListener("change", function () {
     }
   };
 });
-
-// /**
-//  * @description Inserts the item names into the drop list table and changes the ID next to the drop down list
-//  * based on the selected row in the drop list table
-//  */
-// document.querySelector("#dropListTable > tbody").addEventListener("click", function (event) {
-//   if (event.target.tagName == "TD") {
-//     let activeRows = document.querySelectorAll("tr.active");
-//     for (const element of activeRows) {
-//       element.classList.remove("active");
-//     }
-//     event.target.parentElement.classList.add("active");
-//     let itemId = event.target.parentElement.getAttribute("item_id");
-//     document.querySelector("#selectedItemId").textContent = itemId;
-//     selectedRow = itemId;
-//     selectedEl = event.target;
-//     document.querySelector(".select2").value = itemId;
-//     let evt = new Event("change");
-//     document.querySelector(".select2").dispatchEvent(evt);
-//   }
-// });
 
 $(".select2").on("change", function () {
   const selected = document.querySelector(".select2");
@@ -89,6 +69,22 @@ $(".select2").on("change", function () {
   document.querySelector("#selectedItemId").textContent = selectedEl.id;
 });
 
+const getMonsterName = (id) => {
+  if (!id || id == 0) {
+    return;
+  }
+
+  const data = cabalMsgDec.filter((el) => el && el.includes(`monster${id}`));
+
+  const splitEl = data[0].split("\t");
+  if (splitEl.length == 0) {
+    return;
+  }
+  const string = splitEl[0];
+  const name = string.split("name=")[1];
+  return name;
+};
+
 generateListButton.addEventListener("click", function () {
   if (itemDropList.length == 0) {
     return;
@@ -97,7 +93,7 @@ generateListButton.addEventListener("click", function () {
   const items = document.querySelectorAll(".item");
   let list = "";
   items.forEach((el) => {
-    console.log(el);
+    const monsterName = getMonsterName(el.querySelector(".TerrainMob").value);
     const itemNumber = el.querySelector(".itemNumber").value;
     const terrainIdx = el.querySelector(".terrainIdx").value;
     const dungeonID = el.querySelector(".dungeonId").value || 0;
@@ -115,8 +111,11 @@ generateListButton.addEventListener("click", function () {
     const dropSvrCh = 0;
     const eventDropOnly = 0;
 
-    list += `${itemNumber}\t${terrainIdx}\t${dungeonID}\t${TerrainMobID}\t${itemID}\t${itemOpt}\t${dropRate}\t${minLv}\t${maxLv}\t${group}\t${maxDropCnt}\t${optPoolIdx}\t${durationIdx}\t${dropSvrCh}\t${eventDropOnly}\t// ${
-      itemLabel ? itemLabel : ""
+    const label = itemLabel ? itemLabel : "Undefined";
+    const monster = monsterName ? monsterName : "All";
+
+    list += `${itemNumber}\t${terrainIdx}\t${dungeonID}\t${TerrainMobID}\t${itemID}\t${itemOpt}\t${dropRate}\t${minLv}\t${maxLv}\t${group}\t${maxDropCnt}\t${optPoolIdx}\t${durationIdx}\t${dropSvrCh}\t${eventDropOnly}\t#${
+      monster + " " + label
     }\r`;
   });
   $("#itemListModal").modal("show");

@@ -32,11 +32,12 @@
   width: 400px;
 }
 
-.table {
-  width: 100%;
+.table-data {
+  width: 1400px;
   border-collapse: collapse;
   padding: 30px;
-  margin-top: 100px;
+  position: relative;
+  margin: 120px auto;
 }
 
 header {
@@ -49,4 +50,30 @@ header {
   padding-right: 10px;
   background: white;
   border-bottom: 2px solid gray;
+  z-index: 2;
+}
+
+thead {
+  position: fixed;
+  top: 195px;
+  width: inherit;
+  border-bottom: 1px solid gray;
+  background-color: white;
+  height: 50px;
+}
+
+thead > tr > th {
+  background: white;
+  padding: 10px;
+  width: 100px;
+}
+
+tbody > tr > td {
+  border-bottom: 1px solid gray;
+  padding: 10px;
+  width: 100px;
+}
+
+tbody > tr:nth-of-type(odd) {
+  background: #f3f3f3;
 }

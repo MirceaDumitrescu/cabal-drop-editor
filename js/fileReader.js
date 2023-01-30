@@ -29,7 +29,29 @@ const processMsgData = async (reader) => {
       result = result.replaceAll("\t", "");
       result = result.replaceAll("\r", "");
       let splitByRow = result.split("\n");
-      console.log(splitByRow);
+      resolve(splitByRow);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+/**
+ * @description - get all monsters from the file
+ */
+const getMonsters = async (reader) => {
+  return new Promise((resolve, reject) => {
+    try {
+      let result = reader.result.split("<mob_msg>")[1].split("</mob_msg>")[0];
+      result = result.replaceAll('<msg id="', "id=");
+      result = result.replaceAll('cont="', "name=");
+      result = result.replaceAll('"', "");
+      result = result.replaceAll('" />', "");
+      result = result.replaceAll('"/>', "");
+      result = result.replaceAll("/>", "");
+      result = result.replaceAll("\t", "");
+      result = result.replaceAll("\r", "");
+      let splitByRow = result.split("\n");
       resolve(splitByRow);
     } catch (err) {
       reject(err);
@@ -96,4 +118,4 @@ const createTerrainDropList = async (data) => {
   });
 };
 
-export { fileReader, processMsgData, processTerrainData, createTerrainDropList };
+export { fileReader, processMsgData, processTerrainData, createTerrainDropList, getMonsters };
