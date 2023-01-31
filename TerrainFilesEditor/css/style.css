@@ -1,0 +1,79 @@
+.active {
+  background-color: lightblue !important;
+}
+
+.header__values {
+  display: flex;
+  gap: 20px;
+}
+
+.header__values > p {
+  display: flex;
+}
+
+.header__secondary {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.header__primary {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+}
+
+.select_name {
+  width: 400px;
+}
+
+.table-data {
+  width: 1400px;
+  border-collapse: collapse;
+  padding: 30px;
+  position: relative;
+  margin: 120px auto;
+}
+
+header {
+  position: fixed !important;
+  top: 0;
+  width: 100%;
+  right: 0;
+  left: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: white;
+  border-bottom: 2px solid gray;
+  z-index: 2;
+}
+
+thead {
+  position: fixed;
+  top: 195px;
+  width: inherit;
+  border-bottom: 1px solid gray;
+  background-color: white;
+  height: 50px;
+}
+
+thead > tr > th {
+  background: white;
+  padding: 10px;
+  width: 100px;
+}
+
+tbody > tr > td {
+  border-bottom: 1px solid gray;
+  padding: 10px;
+  width: 100px;
+}
+
+tbody > tr:nth-of-type(odd) {
+  background: #f3f3f3;
+}
