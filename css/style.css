@@ -37,7 +37,7 @@
   border-collapse: collapse;
   padding: 30px;
   position: relative;
-  margin: 120px auto;
+  margin: 140px auto;
 }
 
 header {
@@ -55,7 +55,7 @@ header {
 
 thead {
   position: fixed;
-  top: 195px;
+  top: 245px;
   width: inherit;
   border-bottom: 1px solid gray;
   background-color: white;
@@ -76,4 +76,11 @@ tbody > tr > td {
 
 tbody > tr:nth-of-type(odd) {
   background: #f3f3f3;
+}
+
+.header__title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
 }
