@@ -22,6 +22,7 @@ let selectedEl = {
 terrainFileInput.addEventListener("change", async function (e) {
   itemDropList = await getItemDropList(e);
   render(itemDropList);
+  calculateTotalDropRate();
   const deleteRowBtn = document.querySelectorAll("#delete");
   deleteRowBtn.forEach((el) => {
     el.addEventListener("click", function (e) {
@@ -29,6 +30,18 @@ terrainFileInput.addEventListener("change", async function (e) {
     });
   });
 });
+
+const calculateTotalDropRate = () => {
+  const dropRate = document.querySelectorAll(".dropRate");
+  let total = 0;
+  dropRate.forEach((el) => {
+    if (el.value == "") {
+      return;
+    }
+    total += Number(el.value);
+  });
+  document.querySelector("#totalDropRate").textContent = total;
+};
 
 /**
  * @description - adds a new item to the drop list table

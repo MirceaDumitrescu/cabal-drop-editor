@@ -72,7 +72,8 @@ const processTerrainData = async (data) => {
         .split("[")[0]
         .split("\n")
         .filter((el) => el !== "")
-        .map((el) => el.split("\t"));
+        .map((el) => el.split("\t"))
+        .filter((el) => el.length > 1);
       resolve(result);
     } catch (err) {
       reject(err);

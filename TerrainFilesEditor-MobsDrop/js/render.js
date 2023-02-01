@@ -1,4 +1,5 @@
-import { fileReader, processTerrainData } from "./fileReader.js";
+import { fileReader } from "./fileReader.js";
+import { processTerrainData } from "../../utils/utils.js";
 
 const render = async (data) => {
   const tbody = document.querySelector("#dropListTable > tbody");

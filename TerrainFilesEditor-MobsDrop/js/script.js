@@ -22,6 +22,7 @@ let selectedEl = {
 terrainFileInput.addEventListener("change", async function (e) {
   itemDropList = await getItemDropList(e);
   render(itemDropList);
+  calculateTotalDropRate();
   const deleteRowBtn = document.querySelectorAll("#delete");
   deleteRowBtn.forEach((el) => {
     el.addEventListener("click", function (e) {
@@ -29,6 +30,22 @@ terrainFileInput.addEventListener("change", async function (e) {
     });
   });
 });
+
+/**
+ * @description Calculate the total drop rate on the current map/file
+ */
+const calculateTotalDropRate = () => {
+  const dropRate = document.querySelectorAll(".dropRate");
+  let total = 0;
+  dropRate.forEach((el) => {
+    console.log(el.value);
+    if (el.value == "" || el.value == 0 || el.value == "0" || el.value == "0.0" || el.value == undefined) {
+      return;
+    }
+    total += Number(el.value);
+  });
+  document.querySelector("#totalDropRate").textContent = total;
+};
 
 /**
  * @description - adds a new item to the drop list table
@@ -71,6 +88,11 @@ $(".select2").on("change", function () {
 
 const getMonsterName = (id) => {
   if (!id || id == 0) {
+    return;
+  }
+
+  if (!cabalMsgDec) {
+    alert("Please select the cabal_msg.dec file");
     return;
   }
 

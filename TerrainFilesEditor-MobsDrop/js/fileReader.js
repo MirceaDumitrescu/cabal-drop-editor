@@ -60,27 +60,6 @@ const getMonsters = async (reader) => {
 };
 
 /**
- * @description - processes the cabal_terrain_drop.dec file and returns an array of strings
- * @param {*} data
- * @returns - array of strings
- */
-const processTerrainData = async (data) => {
-  return new Promise((resolve, reject) => {
-    try {
-      let result = data
-        .split("[MobsDrop]	TerrainIdx	SpeciesIdx	ItemKind	ItemOpt	DropRate	MinLv	MaxDropCnt	OptPoolIdx	DurationIdx")[1]
-        .split("[")[0]
-        .split("\n")
-        .filter((el) => el !== "")
-        .map((el) => el.split("\t"));
-      resolve(result);
-    } catch (err) {
-      reject(err);
-    }
-  });
-};
-
-/**
  * @description - creates the drop down list for the terrain drop table
  * @param {*} data
  * @returns - array of objects
@@ -116,4 +95,4 @@ const createTerrainDropList = async (data) => {
   });
 };
 
-export { fileReader, processMsgData, processTerrainData, createTerrainDropList, getMonsters };
+export { fileReader, processMsgData, createTerrainDropList, getMonsters };
