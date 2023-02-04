@@ -2,6 +2,7 @@ import render, { getItemDropList } from "./render.js";
 import { processMsgData, createTerrainDropList, getMonsters } from "./fileReader.js";
 import { insertItemNames } from "./itemNames.js";
 import { appendNewItem } from "./addItem.js";
+import { createItemNumber } from "../../utils/utils.js";
 
 const terrainFileInput = document.querySelector("#terrainFile");
 const itemsFile = document.querySelector("#itemsFile");
@@ -38,7 +39,6 @@ const calculateTotalDropRate = () => {
   const dropRate = document.querySelectorAll(".dropRate");
   let total = 0;
   dropRate.forEach((el) => {
-    console.log(el.value);
     if (el.value == "" || el.value == 0 || el.value == "0" || el.value == "0.0" || el.value == undefined) {
       return;
     }
@@ -116,7 +116,7 @@ generateListButton.addEventListener("click", function () {
   let list = "";
   items.forEach((el) => {
     const monsterName = getMonsterName(el.querySelector(".mobId").value);
-    const itemNumber = el.querySelector(".itemNumber").value;
+    const itemNumber = createItemNumber(el.querySelector(".itemNumber"));
     const terrainIdx = el.querySelector(".terrainIdx").value;
     const mobId = el.querySelector(".mobId").value;
     const itemLabel = el.querySelector(".itemLabel").textContent || null;

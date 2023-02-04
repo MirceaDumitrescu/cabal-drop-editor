@@ -2,6 +2,7 @@ import render, { getItemDropList } from "./render.js";
 import { processMsgData, createTerrainDropList, getMonsters } from "./fileReader.js";
 import { insertItemNames } from "./itemNames.js";
 import { appendNewItem } from "./addItem.js";
+import { createItemNumber } from "../utils/utils.js";
 
 const terrainFileInput = document.querySelector("#terrainFile");
 const itemsFile = document.querySelector("#itemsFile");
@@ -107,7 +108,7 @@ generateListButton.addEventListener("click", function () {
   let list = "";
   items.forEach((el) => {
     const monsterName = getMonsterName(el.querySelector(".TerrainMob").value);
-    const itemNumber = el.querySelector(".itemNumber").value;
+    const itemNumber = createItemNumber(el.querySelector(".itemNumber"));
     const terrainIdx = el.querySelector(".terrainIdx").value;
     const dungeonID = el.querySelector(".dungeonId").value || 0;
     const TerrainMobID = el.querySelector(".TerrainMob").value || 0;

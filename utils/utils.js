@@ -21,4 +21,21 @@ const processTerrainData = async (data) => {
   });
 };
 
-export { processTerrainData };
+/**
+ * @description creates item index number
+ */
+
+const createItemNumber = (el) => {
+  const itemNumber = document.querySelectorAll(".itemNumber");
+
+  if (itemNumber.length == 0) {
+    el.value = 0;
+    return;
+  }
+
+  const index = Array.from(itemNumber).indexOf(el);
+
+  return index;
+};
+
+export { processTerrainData, createItemNumber };

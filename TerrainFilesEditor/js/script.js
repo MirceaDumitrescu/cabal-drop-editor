@@ -2,6 +2,7 @@ import render, { getItemDropList } from "./render.js";
 import { processMsgData, createTerrainDropList, getMonsters } from "./fileReader.js";
 import { insertItemNames } from "./itemNames.js";
 import { appendNewItem } from "./addItem.js";
+import { createItemNumber } from "../../utils/utils.js";
 
 const terrainFileInput = document.querySelector("#terrainFile");
 const itemsFile = document.querySelector("#itemsFile");
@@ -82,22 +83,6 @@ $(".select2").on("change", function () {
   document.querySelector("#selectedItemId").textContent = selectedEl.id;
 });
 
-const getMonsterName = (id) => {
-  if (!id || id == 0) {
-    return;
-  }
-
-  const data = cabalMsgDec.filter((el) => el && el.includes(`monster${id}`));
-
-  const splitEl = data[0].split("\t");
-  if (splitEl.length == 0) {
-    return;
-  }
-  const string = splitEl[0];
-  const name = string.split("name=")[1];
-  return name;
-};
-
 generateListButton.addEventListener("click", function () {
   if (itemDropList.length == 0) {
     return;
@@ -106,7 +91,7 @@ generateListButton.addEventListener("click", function () {
   const items = document.querySelectorAll(".item");
   let list = "";
   items.forEach((el) => {
-    const itemNumber = el.querySelector(".itemNumber").value;
+    const itemNumber = createItemNumber(el.querySelector(".itemNumber"));
     const terrainIdx = el.querySelector(".terrainIdx").value;
     const itemLabel = el.querySelector(".itemLabel").textContent || null;
     const itemID = el.querySelector(".itemID").value;
